@@ -1,9 +1,7 @@
-# Password Strength Checker
-## _utilizing Shannon Entropy, common password checks_
-## _and Bruteforce time estimation using Hydra_
+# _Password Strength Checker_
 
 
->This project is a CLI program written in C. You input a password and it calculates strength/safety with various metrics (length, special characters, etc.) and Shannon Entropy. It also checks if it is in a [list of common passwords](https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/Pwdb_top-10000000.txt) and provides a bruteforce time estimation using Hydra.
+This project is a CLI program written in C. You input a password and it calculates strength/safety with various metrics (length, special characters, etc.) and Shannon Entropy. It also checks if it is in a [list of common passwords](https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/Pwdb_top-10000000.txt) and provides a bruteforce time estimation using Hydra.
 
 
 ## Features
@@ -17,3 +15,5 @@
  - Hydra Implementation
  - Possible HaveIBeenPwd API implementation
  - ANSI Colored Output
+
+Written on Dillinger
