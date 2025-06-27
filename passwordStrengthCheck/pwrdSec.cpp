@@ -3,13 +3,17 @@
 // and simulates bruteforce time.
 // HaveIBeenPwned integration via shell 
 //
+#include <iostream>
+#include <cstdio>
+#include <string>
+#include <cstring>
+#include <cmath>
+#include <cstdlib> //ASCII library
+#include <unordered_map> //why??
+using namespace std;
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h> //ASCII library
-#include <math.h> //log function
-//#include "uthash.h" //hashmap library
-
+// compile with:
+// g++ pwrdSec.cpp -o xpwrdSec -std=c++20 -lm
 
 int metrics (char input[]) {
 	int strength = 0;
@@ -91,6 +95,23 @@ int isCommonPassword(const char *password, const char *filename) {
     return 0;  // No match
 }
 
+double shannon_entropy(const char* input) {
+	string s(input);
+	unordered_map<char, int> freq;
+
+	for (char c : s)
+        	freq[c]++;
+
+	double entropy = 0.0;
+	int len = s.size();
+	for (const auto& p : freq) {
+		double f = (double)p.second / len;
+		entropy -= f * (log2(f));
+	}
+
+	return entropy;
+}
+
 int main() {
 
 	// TO DO
@@ -99,12 +120,12 @@ int main() {
 	// DONE: function that checks strength based on length, letter case, numbers, symbols
 	// 
 	// STUDY/DONE: Check for common words with File I/O, (make it work for substrings also?)
-	// Shannon Entropy (hash map, check out code review)
+	// STUDY/DONE: Shannon Entropy (hash map, check out code review)
 	// Colored Output
 	// Estimated Brute-force time (with John the ripper)
 	// More special characters (to be more accurate with the estimation)
 	// HaveIBeenPwned API 
-	//
+	// Cmake file??
 	
 	char input[256];
 	
@@ -119,9 +140,11 @@ int main() {
 			fprintf(stderr, "Invalid Password Input.\n");
 			continue;
 		}
-
+		
 		stripNewline(input);
+		
 		printf("Input: %s\n", input);
+		printf("Entropy: %f\n", shannon_entropy(input));
 		metrics(input);
 		
 		if (isCommonPassword(input, "Pwdb_top-10000000.txt")) {
