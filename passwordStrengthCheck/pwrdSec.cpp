@@ -10,12 +10,13 @@
 #include <cmath>
 #include <cstdlib> //ASCII library
 #include <unordered_map> //why??
+#include <utility>
 using namespace std;
 
 // compile with:
 // g++ pwrdSec.cpp -o xpwrdSec -std=c++20 -lm
 
-int metrics (char input[]) {
+void metrics (char input[]) {
 	int strength = 0;
 	int lowerC = 0;
 	int highC = 0;
@@ -37,6 +38,7 @@ int metrics (char input[]) {
 			num++;
 		} else if(charAscii == 33 || charAscii == 35 || charAscii == 36 ||
 	    	charAscii == 37 || charAscii == 38 || charAscii == 42 || charAscii == 63 || charAscii == 64) {
+			//could just make it just else, since all other types are taken into account
 			//has "!#$%&*?@
 			specialC++;
 		}
@@ -50,20 +52,25 @@ int metrics (char input[]) {
 	if (specialC > 0)
 		strength++;
 	
-	printf("strength: %d\n", strength);
-	
-	if(strlen(input) <= 8)
-		printf("Please make a longer password to increase safety.\n");
-	if (lowerC == 0)
-		printf("Please add lower case characters to increase password safety.\n");
-	if (highC == 0) 
-		printf("Please add high case characters to increase password safety.\n");
-	if (num == 0) 
-		printf("Please add numbers to increase password safety.\n");
-	if (specialC == 0) 
-		printf("Please add special characters to increase password safety.\n");
 
-	return strength;
+	if (strength == 5) { //this applies only for bruteforce?
+		printf("Strength: %d, \x1b[32mStrong\x1b[0m\n", strength);
+	} else if (strength == 3 || strength == 4) {
+		printf("Strength: %d, \x1b[33mModerate\x1b[0m\n", strength);
+	} else {
+		printf("Strength: %d, \x1b[1;31mWeak\x1b[0m\n", strength);
+	}
+
+	if(strlen(input) <= 8)
+		printf("\x1b[1;31mPlease make a longer password to increase safety.\x1b[0m\n");
+	if (lowerC == 0)
+		printf("\x1b[1;31mPlease add lower case characters to increase password safety.\x1b[0m\n");
+	if (highC == 0) 
+		printf("\x1b[1;31mPlease add high case characters to increase password safety.\x1b[0m\n");
+	if (num == 0) 
+		printf("\x1b[1;31mPlease add numbers to increase password safety.\x1b[0m\n");
+	if (specialC == 0) 
+		printf("\x1b[1;31mPlease add special characters to increase password safety.\x1b[0m\n");
 }
 
 // Function to trim newline characters from file lines
@@ -95,21 +102,28 @@ int isCommonPassword(const char *password, const char *filename) {
     return 0;  // No match
 }
 
-double shannon_entropy(const char* input) {
+pair<double, double> entropy(const char* input) { // calculates both shannon and password entropies
 	string s(input);
+	pair<double, double> p;
 	unordered_map<char, int> freq;
 
 	for (char c : s)
         	freq[c]++;
 
-	double entropy = 0.0;
+	double sEntropy = 0.0;//shannon
+	double pEntropy = 0.0;//password
+	int R = 0; //unique characters
 	int len = s.size();
 	for (const auto& p : freq) {
 		double f = (double)p.second / len;
-		entropy -= f * (log2(f));
+		R++;
+		sEntropy -= f * (log2(f));
 	}
-
-	return entropy;
+	
+	pEntropy = log2(R) * len;
+	p.first = sEntropy * len;
+	p.second = pEntropy;
+	return p;
 }
 
 int main() {
@@ -121,11 +135,12 @@ int main() {
 	// 
 	// STUDY/DONE: Check for common words with File I/O, (make it work for substrings also?)
 	// STUDY/DONE: Shannon Entropy (hash map, check out code review)
-	// Colored Output
+	// IN PROCESS: Colored Output
 	// Estimated Brute-force time (with John the ripper)
 	// More special characters (to be more accurate with the estimation)
 	// HaveIBeenPwned API 
 	// Cmake file??
+	// DONE: Password Entropy: E = log2(R^L)
 	
 	char input[256];
 	
@@ -144,7 +159,11 @@ int main() {
 		stripNewline(input);
 		
 		printf("Input: %s\n", input);
-		printf("Entropy: %f\n", shannon_entropy(input));
+
+		pair<double, double> ent = entropy(input);
+		printf("Shannon Entropy: %.1f bits\n", ent.first); //colorize ??
+		//password entropy and compare it to research suggested bit values
+		printf("Password Entropy: %.1f bits\n", ent.second);
 		metrics(input);
 		
 		if (isCommonPassword(input, "Pwdb_top-10000000.txt")) {
