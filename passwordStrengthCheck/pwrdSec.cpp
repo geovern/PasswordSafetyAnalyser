@@ -186,9 +186,9 @@ int main() {
 
 		//password entropy and compare it to research suggested bit values
 		if (ent.second >= 100.0) {
-			printf("Password Entropy: %.1f bits, \x1b[32mVery strong\x1b[0m\n", ent.second); //Proton, maybe NIST
+			printf("Password Entropy: %.1f bits, \x1b[32mVery strong\x1b[0m\n", ent.second); //Proton
 		} else if (ent.second >= 80) {
-			printf("Password Entropy: %.1f bits, \x1b[33mModerately strong\x1b[0m\n", ent.second); //blog??
+			printf("Password Entropy: %.1f bits, \x1b[33mModerately strong\x1b[0m\n", ent.second);
 		} else {
 			printf("Password Entropy: %.1f bits, \x1b[1;31mWeak\x1b[0m\n", ent.second);
 		}

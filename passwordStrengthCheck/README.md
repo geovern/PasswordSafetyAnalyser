@@ -38,6 +38,10 @@ blah blah, sources and code snippets
 
 Shannon Entropy measures uncertainty per symbol based on actual character frequency, calculated using the following formula:
 
+```math
+H(X) = - \sum_{i=1}^{n} P(x_i) \log_b P(x_i)
+```
+
 ![formula](https://wikimedia.org/api/rest_v1/media/math/render/svg/ff26f81edc1f4bb204793a52b2430c77f6633203)
 
 <img src = "https://wikimedia.org/api/rest_v1/media/math/render/svg/ff26f81edc1f4bb204793a52b2430c77f6633203" alt = "formula">
