@@ -47,7 +47,9 @@ log2: logarithm used to express entropy in bits
 For example: 
 
 Input: Hello
+
 Range = 52 -> all lower and upper case characters
+
 Length = 5
 
 ```math
@@ -67,40 +69,41 @@ H(X) = - \sum_{i=1}^{n} P(x_i) \log_2 P(x_i)
 ```
 
 H(X): Shannon Entropy of password X (in bits)
+
 P(x_i): Probability occurrence of character x_i in X 
+
 n: Number of unique characters
+
 log2: logarithm used to express entropy in bits
 
 I will not be providing an example of the Shannon Entropy calculation since it would take too long to calculate the probabilities of all password characters and sum them up by hand. But this is a code snippet of how it is calculated:
 
-```c
+```cpp
 double entropy(const char* input) {
     std::Lstring s(input);
     std::unordered_map<char, int> freq;
 
-	for (char c : s)
-        	freq[c]++;
+    for (char c : s)
+        freq[c]++;
 
-	double sEntropy = 0.0;
-	int len = s.size();
-	for (const auto& p : freq) {
-		double f = (double)p.second / len;
-		sEntropy -= f * (log2(f));
-	}
-	
-	return sEntropy * len; // multiplying with length to get entropy in bits
+    double sEntropy = 0.0;
+    int len = s.size();
+    for (const auto& p : freq) {
+        double f = (double)p.second / len;
+        sEntropy -= f * (log2(f));
+    }
+
+    return sEntropy * len; // multiplying with length to get entropy in bits
 }
 ```
 
 <br>
-The above code snippet is a simplified example of the Shannon entropy calculation. In reality both entropies are calculated in the same function and returned as a std::pair<double, double>.
+The above code snippet is a simplified example of the Shannon entropy calculation. In reality both entropies are calculated in the same function and returned as a std::pair.
 
 ## To-Do
 
  - John the Ripper time estimation
  - Do dictionary attack simulation with JtR or Hydra instead of my own implementation
- - Fix LaTex formulas (new line)
- - Document on the README how to use the program :facepalm:
  - Possible HaveIBeenPwd API implementation
  - Suggest stronger passphrase alternatives if a password is weak(a -> @, E -> 3, maybe use $random bash cmd and fork/exec to get random additions to the code if no nums are used)
  - Git LFS for large password file
