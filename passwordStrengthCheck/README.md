@@ -31,6 +31,8 @@ So the minimum strength seen is 1 and the maximum is 5. This could be seen more 
 
 <h3>Entropy</h3>
 
+##
+
 <h4>Password Entropy</h4>
 
 Password Entropy measures the _total uncertainty in the whole password_, assuming a random choice from a known set. It is calculated with the following formula:
@@ -56,7 +58,7 @@ E = 5 \times \log_2(52) = 28.5 bits
 
 The following blog post from [Proton](https://proton.me/blog/what-is-password-entropy) was used as reference for the password safety standards included in the code.
 
-<br>
+## 
 
 <h4>Shannon Entropy</h4>
 
@@ -66,13 +68,10 @@ Shannon Entropy measures _uncertainty per symbol_ based on actual character freq
 H(X) = - \sum_{i=1}^{n} P(x_i) \log_2 P(x_i)
 ```
 
-H(X): Shannon Entropy of password X (in bits)
-
-P(x_i): Probability occurrence of character x_i in X 
-
-n: Number of unique characters
-
-log2: logarithm used to express entropy in bits
+H(X): Shannon Entropy of password X (in bits)    
+P(x_i): Probability occurrence of character x_i in X     
+n: Number of unique characters    
+log2: logarithm used to express entropy in bits    
 
 I will not be providing an example of the Shannon Entropy calculation since it would take too long to calculate the probabilities of all password characters and sum them up by hand. But this is a code snippet of how it is calculated:
 
