@@ -34,17 +34,24 @@ So the minimum strength seen is 1 and the maximum is 5.
 
 blah blah, sources and code snippets
 
+```math
+E = L \times \log_2(R)
+E: \text{Password Entropy (in bits)} \\
+L: \text{Length of the password (number of characters)} \\
+R: \text{Size of the character set (number of unique possible characters)} \\
+\log_2: \text{Base-2 logarithm (used to express entropy in bits)}
+```
+
 <h4>Shannon Entropy</h4>
 
 Shannon Entropy measures uncertainty per symbol based on actual character frequency, calculated using the following formula:
 
 ```math
-H(X) = - \sum_{i=1}^{n} P(x_i) \log_b P(x_i)
+H(X) = - \sum_{i=1}^{n} P(x_i) \log_2 P(x_i)
+H(X): \text{Shannon Entropy of the random variable } X \\
+P(x_i): \text{Probability of the } i\text{-th outcome } x_i \\
+n: \text{Number of possible outcomes} \\
 ```
-
-![formula](https://wikimedia.org/api/rest_v1/media/math/render/svg/ff26f81edc1f4bb204793a52b2430c77f6633203)
-
-<img src = "https://wikimedia.org/api/rest_v1/media/math/render/svg/ff26f81edc1f4bb204793a52b2430c77f6633203" alt = "formula">
 
 The above code snippets are a simplified example of the entropy calculations. In reality both entropies are calculated in the same function and returned as a std::pair<double, double>.
 
