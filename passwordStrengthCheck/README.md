@@ -18,6 +18,7 @@ This project is a CLI program written in C++(started it in C). You input a passw
 <h3>Strength Calculation</h3>
 <br />
 Password Strength is calculad by adding 1 point to it for every metric, the metrics being:
+
 - Contains at least 8 characters
 - Contains lower case letters
 - Contains high case letters
@@ -28,19 +29,18 @@ So the minimum strength seen is 1 and the maximum is 5.
 
 <br />
 
-___
 
-<h4>Entropy</h4>
+<h3>Entropy</h3>
 
-<h5>Password Entropy</h5>
+<h4>Password Entropy</h4>
 
 blah blah, sources and code snippets
 
-<h5>Shannon Entropy</h5>
+<h4>Shannon Entropy</h4>
 
 Shannon Entropy measures uncertainty per symbol based on actual character frequency, calculated using the following formula:
 
-https://wikimedia.org/api/rest_v1/media/math/render/svg/ff26f81edc1f4bb204793a52b2430c77f6633203
+<img src = "https://wikimedia.org/api/rest_v1/media/math/render/svg/ff26f81edc1f4bb204793a52b2430c77f6633203" alt = "formula">
 
 ## To-Do
 
