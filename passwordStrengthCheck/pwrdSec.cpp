@@ -16,16 +16,18 @@ using namespace std;
 // compile with:
 // g++ pwrdSec.cpp -o xpwrdSec -std=c++20 -lm
 
-void metrics (char input[]) {
+int metrics (char input[]) {
 	int strength = 0;
 	int lowerC = 0;
 	int highC = 0;
 	int num = 0;
 	int specialC = 0;
 
+	int range = 0; //for password entropy calculation
+
 	if (strlen(input) > 8) 
 		strength++;
-	for (int i = 0; i <= strlen(input); ++i) {
+	for (int i = 0; i < strlen(input); ++i) {
 		int charAscii = (int)input[i];
 		if (charAscii >= 97 && charAscii <= 122) {
 			//lower case
@@ -36,21 +38,28 @@ void metrics (char input[]) {
 		} else if(charAscii >= 48 && charAscii <= 57) {
 			//number
 			num++;
-		} else if(charAscii == 33 || charAscii == 35 || charAscii == 36 ||
-	    	charAscii == 37 || charAscii == 38 || charAscii == 42 || charAscii == 63 || charAscii == 64) {
+		} else {
 			//could just make it just else, since all other types are taken into account
 			//has "!#$%&*?@
 			specialC++;
 		}
 	}
-	if (lowerC > 0) 
+	if (lowerC > 0) {
+		range += 26;
 		strength++;
-	if (highC > 0)
+	}
+	if (highC > 0) {
+		range += 26;
 		strength++;
-	if (num > 0) 
+	}
+	if (num > 0) {
+		range += 10;
 		strength++;
-	if (specialC > 0)
+	}
+	if (specialC > 0) {
+		range += 32;
 		strength++;
+	}
 	
 
 	if (strength == 5) { //this applies only for bruteforce?
@@ -71,6 +80,7 @@ void metrics (char input[]) {
 		printf("\x1b[1;31mPlease add numbers to increase password safety.\x1b[0m\n");
 	if (specialC == 0) 
 		printf("\x1b[1;31mPlease add special characters to increase password safety.\x1b[0m\n");
+	return range;
 }
 
 // Function to trim newline characters from file lines
@@ -102,7 +112,7 @@ int isCommonPassword(const char *password, const char *filename) {
     return 0;  // No match
 }
 
-pair<double, double> entropy(const char* input) { // calculates both shannon and password entropies
+pair<double, double> entropy(const char* input, int range) { // calculates both shannon and password entropies
 	string s(input);
 	pair<double, double> p;
 	unordered_map<char, int> freq;
@@ -112,11 +122,10 @@ pair<double, double> entropy(const char* input) { // calculates both shannon and
 
 	double sEntropy = 0.0;//shannon
 	double pEntropy = 0.0;//password
-	int R = 0; //unique characters
+	int R = range; // pool of unique characters
 	int len = s.size();
 	for (const auto& p : freq) {
 		double f = (double)p.second / len;
-		R++;
 		sEntropy -= f * (log2(f));
 	}
 	
@@ -135,7 +144,7 @@ int main() {
 	// 
 	// STUDY/DONE: Check for common words with File I/O, (make it work for substrings also?)
 	// STUDY/DONE: Shannon Entropy (hash map, check out code review)
-	// IN PROCESS: Colored Output
+	// DONE: Colored Output
 	// Estimated Brute-force time (with John the ripper)
 	// More special characters (to be more accurate with the estimation)
 	// HaveIBeenPwned API 
@@ -148,26 +157,44 @@ int main() {
 		
 		printf("\n");
 
-		//scanf("%s", input); fgets is safer
-		fgets(input, sizeof(input), stdin);
-		
+		scanf("%s", input); //fgets is safer
+		//fgets(input, sizeof(input), stdin);
+
 		if (strcmp(input, "\n") == 0) {
 			fprintf(stderr, "Invalid Password Input.\n");
 			continue;
 		}
-		
+		if (strcmp(input, "exit") == 0) {
+			break;
+		}
+
 		stripNewline(input);
 		
 		printf("Input: %s\n", input);
-
-		pair<double, double> ent = entropy(input);
-		printf("Shannon Entropy: %.1f bits\n", ent.first); //colorize ??
-		//password entropy and compare it to research suggested bit values
-		printf("Password Entropy: %.1f bits\n", ent.second);
-		metrics(input);
 		
+		int range = metrics(input);
+
+		pair<double, double> ent = entropy(input, range);
+	
+		if (ent.first >= 49.0) {
+			printf("Shannon Entropy: %.1f bits, \x1b[32mVery strong\x1b[0m\n", ent.first); //who nose
+		} else if (ent.first >= 29.0) {
+			printf("Shannon Entropy: %.1f bits, \x1b[33mModerately strong\x1b[0m\n", ent.first); //RFC 4086, "Randomness Requirements for Security"
+		} else {
+			printf("Shannon Entropy: %.1f bits, \x1b[1;31mWeak\x1b[0m\n", ent.first);
+		}
+
+		//password entropy and compare it to research suggested bit values
+		if (ent.second >= 100.0) {
+			printf("Password Entropy: %.1f bits, \x1b[32mVery strong\x1b[0m\n", ent.second); //Proton, maybe NIST
+		} else if (ent.second >= 80) {
+			printf("Password Entropy: %.1f bits, \x1b[33mModerately strong\x1b[0m\n", ent.second); //blog??
+		} else {
+			printf("Password Entropy: %.1f bits, \x1b[1;31mWeak\x1b[0m\n", ent.second);
+		}
+
 		if (isCommonPassword(input, "Pwdb_top-10000000.txt")) {
-	      		printf("This password is too common. It is weak against Dictionary attacks. Please choose another.\n");
+	      		printf("\x1b[1;31mThis password is too common. \x1b[0mIt is weak against Dictionary attacks. Please choose another.\n");
     		} else {
         		printf("This password is not in the common password list.\n");
     		}

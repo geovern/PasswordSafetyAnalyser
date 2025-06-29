@@ -7,7 +7,8 @@ This project is a CLI program written in C++(started it in C). You input a passw
 ## Features
 
 - Strength calculation using (casing, length and special charactes)
-- Password randomness measured using [Shannon Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory)) 
+- "Randomness" for human generated passwords measured using [Shannon Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory)) 
+- Password Entropy for randomly generated passwords
 - Bruteforce time estimation using John the Ripper
 
 ## To-Do
