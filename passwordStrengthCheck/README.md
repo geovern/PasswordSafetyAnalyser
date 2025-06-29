@@ -39,18 +39,16 @@ Password Entropy measures the _total uncertainty in the whole password_, assumin
 E = L \times \log_2(R)
 ```
 
-E: Password Entropy (in bits)
-L: Number of characters in password
-R: Possible range of character types in your password
-log2: logarithm used to express entropy in bits
+E: Password Entropy (in bits)     
+L: Number of characters in password    
+R: Possible range of character types in your password    
+log2: logarithm used to express entropy in bits    
 
 For example: 
 
-Input: Hello
-
-Range = 52 -> all lower and upper case characters
-
-Length = 5
+ - Input: Hello
+ - Range = 52 -> all lower and upper case characters
+ - Length = 5
 
 ```math
 E = 5 \times \log_2(52) = 28.5 bits
