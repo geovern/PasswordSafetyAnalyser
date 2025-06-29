@@ -16,9 +16,9 @@ This project is a CLI program written in C++(started it in C). You input a passw
 ## Deep Dive:
 
 <h3>Strength Calculation</h3>
-<br />
-Password Strength is calculad by adding 1 point to it for every metric, the metrics being:
 
+Password Strength is calculad by adding 1 point to it for every metric, the metrics being:
+<br>
 - Contains at least 8 characters
 - Contains lower case letters
 - Contains high case letters
@@ -26,8 +26,6 @@ Password Strength is calculad by adding 1 point to it for every metric, the metr
 - Contains special symbols
 
 So the minimum strength seen is 1 and the maximum is 5.
-
-<br />
 
 
 <h3>Entropy</h3>
@@ -40,7 +38,11 @@ blah blah, sources and code snippets
 
 Shannon Entropy measures uncertainty per symbol based on actual character frequency, calculated using the following formula:
 
+![formula](https://wikimedia.org/api/rest_v1/media/math/render/svg/ff26f81edc1f4bb204793a52b2430c77f6633203)
+
 <img src = "https://wikimedia.org/api/rest_v1/media/math/render/svg/ff26f81edc1f4bb204793a52b2430c77f6633203" alt = "formula">
+
+The above code snippets are a simplified example of the entropy calculations. In reality both entropies are calculated in the same function and returned as a std::pair<double, double>.
 
 ## To-Do
 
