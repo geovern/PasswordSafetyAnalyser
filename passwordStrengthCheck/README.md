@@ -16,7 +16,7 @@ This project is a CLI program written in C++(started it in C). You input a passw
 
 ## Deep Dive:
 
-<h3>Strength Calculation</h3>
+### Strength Calculation
 
 Password Strength is calculad by adding 1 point to it for every metric, the metrics being:
 <br>
@@ -29,9 +29,8 @@ Password Strength is calculad by adding 1 point to it for every metric, the metr
 So the minimum strength seen is 1 and the maximum is 5. This could be seen more as a vast simplification of Password entropy than an actual metric of password strength.
 
 
-<h3>Entropy</h3>
+### Entropy
 
-##
 
 <h4>Password Entropy</h4>
 
