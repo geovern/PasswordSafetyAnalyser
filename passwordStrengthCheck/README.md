@@ -13,6 +13,7 @@ This project is a CLI program written in C++(started it in C). You input a passw
 - Test against Dictionary attacks using a [list of 10M common passwords](https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/Pwdb_top-10000000.txt)
 - Bruteforce time estimation using John the Ripper
 
+
 ## Deep Dive:
 
 <h3>Strength Calculation</h3>
@@ -21,45 +22,87 @@ Password Strength is calculad by adding 1 point to it for every metric, the metr
 <br>
 - Contains at least 8 characters
 - Contains lower case letters
-- Contains high case letters
+- Contains upper case letters
 - Contains numbers
 - Contains special symbols
 
-So the minimum strength seen is 1 and the maximum is 5.
+So the minimum strength seen is 1 and the maximum is 5. This could be seen more as a vast simplification of Password entropy than an actual metric of password strength.
 
 
 <h3>Entropy</h3>
 
 <h4>Password Entropy</h4>
 
-blah blah, sources and code snippets
+Password Entropy measures the _total uncertainty in the whole password_, assuming a random choice from a known set. It is calculated with the following formula:
 
 ```math
 E = L \times \log_2(R)
-E: \text{Password Entropy (in bits)} \\
-L: \text{Length of the password (number of characters)} \\
-R: \text{Size of the character set (number of unique possible characters)} \\
-\log_2: \text{Base-2 logarithm (used to express entropy in bits)}
 ```
+
+E: Password Entropy (in bits)
+L: Number of characters in password
+R: Possible range of character types in your password
+log2: logarithm used to express entropy in bits
+
+For example: 
+
+Input: Hello
+Range = 52 -> all lower and upper case characters
+Length = 5
+
+```math
+E = 5 \times \log_2(52) = 28.5 bits
+```
+
+The following blog post from [Proton](https://proton.me/blog/what-is-password-entropy) was used as reference for the password safety standards included in the code.
+
+<br>
 
 <h4>Shannon Entropy</h4>
 
-Shannon Entropy measures uncertainty per symbol based on actual character frequency, calculated using the following formula:
+Shannon Entropy measures _uncertainty per symbol_ based on actual character frequency, calculated using the following formula:
 
 ```math
 H(X) = - \sum_{i=1}^{n} P(x_i) \log_2 P(x_i)
-H(X): \text{Shannon Entropy of the random variable } X \\
-P(x_i): \text{Probability of the } i\text{-th outcome } x_i \\
-n: \text{Number of possible outcomes} \\
 ```
 
-The above code snippets are a simplified example of the entropy calculations. In reality both entropies are calculated in the same function and returned as a std::pair<double, double>.
+H(X): Shannon Entropy of password X (in bits)
+P(x_i): Probability occurrence of character x_i in X 
+n: Number of unique characters
+log2: logarithm used to express entropy in bits
+
+I will not be providing an example of the Shannon Entropy calculation since it would take too long to calculate the probabilities of all password characters and sum them up by hand. But this is a code snippet of how it is calculated:
+
+```c
+double entropy(const char* input) {
+    std::Lstring s(input);
+    std::unordered_map<char, int> freq;
+
+	for (char c : s)
+        	freq[c]++;
+
+	double sEntropy = 0.0;
+	int len = s.size();
+	for (const auto& p : freq) {
+		double f = (double)p.second / len;
+		sEntropy -= f * (log2(f));
+	}
+	
+	return sEntropy * len; // multiplying with length to get entropy in bits
+}
+```
+
+<br>
+The above code snippet is a simplified example of the Shannon entropy calculation. In reality both entropies are calculated in the same function and returned as a std::pair<double, double>.
 
 ## To-Do
 
  - John the Ripper time estimation
  - Do dictionary attack simulation with JtR or Hydra instead of my own implementation
+ - Fix LaTex formulas (new line)
+ - Document on the README how to use the program :facepalm:
  - Possible HaveIBeenPwd API implementation
+ - Suggest stronger passphrase alternatives if a password is weak(a -> @, E -> 3, maybe use $random bash cmd and fork/exec to get random additions to the code if no nums are used)
  - Git LFS for large password file
  - Cmake(what does the build even do) or how to curl project from github
 
