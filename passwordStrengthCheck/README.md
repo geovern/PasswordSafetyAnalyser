@@ -18,7 +18,7 @@ This project is a CLI program written in C++(started it in C). You input a passw
 
 ### Strength Calculation:
 
-Password Strength is calculad by adding 1 point to it for every metric, the metrics being:
+Password Strength is calculated by adding 1 point to it for every metric, the metrics being:
 <br>
 - Contains at least 8 characters
 - Contains lower case letters
@@ -32,7 +32,7 @@ So the minimum strength seen is 1 and the maximum is 5. This could be seen more 
 ### Entropy:
 
 
-` Password Entropy `
+#### Password Entropy
 
 Password Entropy measures the _total uncertainty in the whole password_, assuming a random choice from a known set. It is calculated with the following formula:
 
@@ -59,7 +59,7 @@ The following blog post from [Proton](https://proton.me/blog/what-is-password-en
 
 ## 
 
-` Shannon Entropy ` 
+#### Shannon Entropy
 
 Shannon Entropy measures _uncertainty per symbol_ based on actual character frequency, calculated using the following formula:
 
