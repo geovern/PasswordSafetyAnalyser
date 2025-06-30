@@ -1,0 +1,9 @@
+x* #all my executables
+
+utash.h #should be deleted later since it is unused
+
+malloctest.c
+
+hashmap.h
+
+*.txt
