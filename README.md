@@ -11,7 +11,7 @@ This project is a CLI program written in C++(started it in C). You input a passw
 - Unpredictability for human generated passwords measured using [Shannon Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory)) 
 - [Password Entropy](https://www.pleacher.com/mp/mlessons/algebra/entropy.html) for randomly generated passwords
 - Test against Dictionary attacks using a [list of 10M common passwords](https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/Pwdb_top-10000000.txt)
-- Bruteforce time estimation using John the Ripper
+- Bruteforce time estimation (1 Billion guesses/sec)
 
 
 ## Deep Dive:
@@ -100,12 +100,13 @@ The following blog post from [Proton](https://proton.me/blog/what-is-password-en
 
 ## To-Do
 
- - John the Ripper time estimation
- - Do dictionary attack simulation with JtR or Hydra instead of my own implementation
- - Possible HaveIBeenPwd API implementation
- - Suggest stronger passphrase alternatives if a password is weak(a -> @, E -> 3, maybe use $random bash cmd and fork/exec to get random additions to the code if no nums are used)
- - Git LFS for large password file
  - Seperate functions into a different .hpp .cpp files
  - Cmake(what does the build even do) or how to curl project from github
  - Docker for dependency installation
+ - Do dictionary attack simulation with JtR or Hydra instead of my own implementation, using fork,exec,pipe
+ - Possible HaveIBeenPwd API implementation
+ - Suggest stronger passphrase alternatives if a password is weak(a -> @, E -> 3, maybe use $random bash cmd and fork/exec to get random additions to the code if no nums are used)
+ - Git LFS for large password file
  - Turn it into a Web API using Kubernetes in the Cloud
+
+

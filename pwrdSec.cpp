@@ -152,11 +152,13 @@ int main() {
 	// DONE: Password Entropy: E = log2(R^L)
 	
 	char input[256];
-	
+	int overall;
 	while (1) {
 		
+		overall = 0;
+		
 		printf("\n");
-
+		
 		scanf("%s", input); //fgets is safer
 		//fgets(input, sizeof(input), stdin);
 
@@ -192,6 +194,29 @@ int main() {
 		} else {
 			printf("Password Entropy: %.1f bits, \x1b[1;31mWeak\x1b[0m\n", ent.second);
 		}
+		
+		int length = strlen(input);
+		// Use logarithms to prevent overflow:
+		//long double log_combinations = length * log10(range);
+		//long double total_guesses = pow(10, log_combinations);
+		long double total_guesses = pow(range, length);
+		double guesses_per_sec = 1e9; // 1B guesses/sec
+		long double seconds = total_guesses / guesses_per_sec;
+
+		printf("Estimated brute-force time at 1B guesses/sec:\n");
+
+		if (seconds < 1) printf("Instantly crackable\n");
+		else if (seconds < 60) printf("%.2Lf seconds\n", seconds);
+		else if (seconds < 3600) printf("%.2Lf minutes\n", seconds / 60);
+		else if (seconds < 86400) printf("%.2Lf hours\n", seconds / 3600);
+		else if (seconds < 31536000) printf("%.2Lf days\n", seconds / 86400);
+		else if (seconds < 3.1536e10) printf("%.2Lf years\n", seconds / 31536000);
+		else if (seconds < 3.1536e13) printf("%.2Lf millennia\n", seconds / 3.1536e10);
+		else if (seconds < 3.1536e16) printf("%.2Lf Million years\n", seconds / 3.1536e13);
+		else if (seconds < 3.1536e19) printf("%.2Lf Billion years\n", seconds / 3.1536e16);
+		else if (seconds < 3.1536e22) printf("%.2Lf Trillion years\n", seconds / 3.1536e19);
+		else if (seconds < 3.1536e25) printf("%.2Lf Quadrillion years\n", seconds / 3.1536e22);
+		else printf("%.2Lf Quintillion years\n", seconds / 3.1536e25);
 
 		if (isCommonPassword(input, "Pwdb_top-10000000.txt")) {
 	      		printf("\x1b[1;31mThis password is too common. \x1b[0mIt is weak against Dictionary attacks. Please choose another.\n");
