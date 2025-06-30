@@ -1,4 +1,4 @@
-utash.h # should be deleted later since it is unused
+uthash.h # should be deleted later since it is unused
 
 malloctest.c
 hashmap.h
@@ -7,4 +7,4 @@ xpwrdSec
 xhashmap
 xpasswrdSec
 
-*.txt
+tools.txt
