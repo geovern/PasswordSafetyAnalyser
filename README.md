@@ -110,7 +110,7 @@ Disclaimer: Not all references provided are peer-reviewed or academically "valid
 The BTE was made using the following equation:    
 
 ```math
-\text{Estimated Time (seconds)} = \frac{\text{Combinations}}{\text{Guesses Per Second}}, \text{where}
+\text{Estimated Time (seconds)} = \frac{\text{Combinations}}{\text{Guesses Per Second}}, \text{ where}
 ```
 <br> 
 
@@ -118,6 +118,7 @@ The BTE was made using the following equation:
 \text{Combinations} = (\text{Character type range})^{(\text{Password Length})}
 ```
 
+<br>
 
 ```cpp
     int length = strlen(input); //length of password
