@@ -55,6 +55,8 @@ For example:
 E = 5 \times \log_2(52) = 28.5 bits
 ```
 
+<br>
+
 The following blog post from [Proton](https://proton.me/blog/what-is-password-entropy) was used as reference for the password safety standards of password entropy included in the code.
 
 ## 
@@ -66,6 +68,8 @@ Shannon Entropy measures _uncertainty per symbol_ based on actual character freq
 ```math
 H(X) = - \sum_{i=1}^{n} P(x_i) \log_2 P(x_i)
 ```
+
+<br>
 
 $$H(X)$$: Shannon Entropy of password X (in bits)    
 $$P(x_i)$$: Probability occurrence of character $$x_i$$ in X     
@@ -100,7 +104,8 @@ The above code snippet is a simplified example of the Shannon entropy calculatio
 The following document from [RFC editor](https://www.rfc-editor.org/rfc/rfc4086) served as reference for the password safety standards of shannon entropy included in the code. Shannon entropy is not widely used in password security estimations and research is limited, so no true standard of security exists.    
 
 
-Entropy, in general, can not provide a standard of password security due to [Moore's Law](https://en.wikipedia.org/wiki/Moore%27s_law) (2/3 bits would have to be added every year to maintain password security standards, [RFC4086](https://www.rfc-editor.org/rfc/rfc4086#section-8.2.1)) and the varying resistance to cracking attacks shown between passwords of the same (Shannon)entropy value presented in this [blog](https://reusablesec.blogspot.com/2010/10/ccs-paper-part-2-password-entropy.html).
+Entropy, in general, can not provide a standard of password security due to 1) [Moore's Law](https://en.wikipedia.org/wiki/Moore%27s_law) (2/3 bits would have to be added every year to maintain password security standards, [RFC4086](https://www.rfc-editor.org/rfc/rfc4086#section-8.2.1)) and 2) the varying resistance to cracking attacks between passwords of the same (Shannon) entropy value presented in this [blog](https://reusablesec.blogspot.com/2010/10/ccs-paper-part-2-password-entropy.html).
+
 <br>
 
 Disclaimer: Not all references provided are peer-reviewed or academically "valid". This is just a side project, not to be used as an actual tool for determining password security.
