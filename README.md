@@ -132,10 +132,18 @@ long double seconds = totalGuesses / guessesPerSec; //estimated time
 (...)
 ```   
 
+## How to Install:
+
+On Linux (if you have cmake and a C++ compiler):
+
+```bash 
+git clone https://github.com/geovern/PasswordSafetyAnalyser.git
+./build_project
+```
+
 ## To-Do
 
- - Cmake
- - Docker for dependency installation
+ - Docker for window and mac support, or dependency installation
  - Do dictionary attack simulation with JtR or Hydra instead of my own implementation, using fork,exec,pipe
  - Possible HaveIBeenPwd API implementation
  - Suggest stronger passphrase alternatives if a password is weak(a -> @, E -> 3, maybe use $random bash cmd and fork/exec to get random additions to the code if no nums are used)
