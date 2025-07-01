@@ -95,15 +95,13 @@ double entropy(const char* input) {
 
 <br>    
 
-The above code snippet is a simplified example of the Shannon entropy calculation. In reality both entropies are calculated in the same function and returned as a std::pair.    
+The above code snippet is a simplified example of the Shannon entropy calculation. In reality both entropies are calculated in the same function and returned as a std::pair.        
 
-<br>    
+The following document from [RFC editor](https://www.rfc-editor.org/rfc/rfc4086) served as reference for the password safety standards of shannon entropy included in the code. Shannon entropy is not widely used in password security estimations and research is limited, so no true standard of security exists.    
 
-The following blog post from [RFC editor](https://www.rfc-editor.org/rfc/rfc4086) was used as reference for the password safety standards of shannon entropy included in the code. Shannon entropy is not widely used in password security estimations and research is limited, so no true standard of security exists.    
-
-<br>   
 
 Entropy, in general, can not provide a standard of password security due to [Moore's Law](https://en.wikipedia.org/wiki/Moore%27s_law) (2/3 bits would have to be added every year to maintain password security standards, [RFC4086](https://www.rfc-editor.org/rfc/rfc4086#section-8.2.1)) and the varying resistance to cracking attacks shown between passwords of the same (Shannon)entropy value presented in this [blog](https://reusablesec.blogspot.com/2010/10/ccs-paper-part-2-password-entropy.html).
+<br>
 
 Disclaimer: Not all references provided are peer-reviewed or academically "valid". This is just a side project, not to be used as an actual tool for determining password security.
 
@@ -111,7 +109,7 @@ Disclaimer: Not all references provided are peer-reviewed or academically "valid
 
 The BTE was made using the following equation:    
 
-$$Estimated Time (seconds) = \frac{Combinations}{Guesses Per Second}$$    
+$$Estimated Time (seconds) = \frac{Combinations}{Guesses Per Second}, where Combinations = {Character type range} ^ {Password Length}$$
 
 
 ```cpp
