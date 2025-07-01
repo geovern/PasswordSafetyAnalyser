@@ -3,6 +3,8 @@ uthash.h # should be deleted later since it is unused
 *.c
 hashmap.h
 
+build
+
 xpwrdSec
 xhashmap
 xpasswrdSec
