@@ -1,7 +1,7 @@
-# _Password Strength Checker_
+# _Password Safety Analyser_
 
-
-This project is a CLI program written in C++(started it in C). You input a password and it calculates strength/safety with various metrics (length, special characters, etc.), Shannon and Password Entropy. It also checks if it is in a list of common passwords and provides a bruteforce time estimation using John the Ripper.
+> Input a password and learn about its strength, unpredictability 
+> and security against Dictionary and Bruteforce attacks.
 
 ---
 
@@ -19,7 +19,7 @@ This project is a CLI program written in C++(started it in C). You input a passw
 ### Strength Calculation:
 
 Password Strength is calculated by adding 1 point to it for every metric, the metrics being:
-<br>
+<br>    
 - Contains at least 8 characters
 - Contains lower case letters
 - Contains upper case letters
@@ -55,7 +55,7 @@ For example:
 E = 5 \times \log_2(52) = 28.5 bits
 ```
 
-The following blog post from [Proton](https://proton.me/blog/what-is-password-entropy) was used as reference for the password safety standards included in the code.
+The following blog post from [Proton](https://proton.me/blog/what-is-password-entropy) was used as reference for the password safety standards of password entropy included in the code.
 
 ## 
 
@@ -93,20 +93,42 @@ double entropy(const char* input) {
 }
 ```
 
-<br>
-The above code snippet is a simplified example of the Shannon entropy calculation. In reality both entropies are calculated in the same function and returned as a std::pair.
+<br>    
 
-The following blog post from [Proton](https://proton.me/blog/what-is-password-entropy) was used as reference for the password safety standards included in the code.
+The above code snippet is a simplified example of the Shannon entropy calculation. In reality both entropies are calculated in the same function and returned as a std::pair.    
+
+<br>    
+
+The following blog post from [RFC editor](https://www.rfc-editor.org/rfc/rfc4086) was used as reference for the password safety standards of shannon entropy included in the code. Shannon entropy is not widely used in password security estimations and research is limited, so no true standard of security exists.    
+
+<br>   
+
+Entropy, in general, can not provide a standard of password security due to [Moore's Law](https://en.wikipedia.org/wiki/Moore%27s_law) (2/3 bits would have to be added every year to maintain password security standards, [RFC4086](https://www.rfc-editor.org/rfc/rfc4086#section-8.2.1)) and the varying resistance to cracking attacks shown between passwords of the same (Shannon)entropy value presented in this [blog](https://reusablesec.blogspot.com/2010/10/ccs-paper-part-2-password-entropy.html).
+
+Disclaimer: Not all references provided are peer-reviewed or academically "valid". This is just a side project, not to be used as an actual tool for determining password security.
+
+### Bruteforce Time Estimation
+
+The BTE was made using the following equation:    
+
+$$Estimated Time (seconds) = \frac{Combinations}{Guesses Per Second}$$    
+
+
+```cpp
+    int length = strlen(input); //length of password
+	long double totalGuesses = pow(range, length); // combinations
+	double guessesPerSec = 1e9; // assuming 1B guesses/sec
+	long double seconds = totalGuesses / guessesPerSec; //estimated time
+    
+    (...)
+```   
 
 ## To-Do
 
- - Seperate functions into a different .hpp .cpp files
- - Cmake(what does the build even do) or how to curl project from github
+ - Cmake
  - Docker for dependency installation
  - Do dictionary attack simulation with JtR or Hydra instead of my own implementation, using fork,exec,pipe
  - Possible HaveIBeenPwd API implementation
  - Suggest stronger passphrase alternatives if a password is weak(a -> @, E -> 3, maybe use $random bash cmd and fork/exec to get random additions to the code if no nums are used)
- - Git LFS for large password file
- - Turn it into a Web API using Kubernetes in the Cloud
 
 
