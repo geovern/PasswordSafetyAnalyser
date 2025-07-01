@@ -125,11 +125,11 @@ The BTE was made using the following equation:
 <br>
 
 ```cpp    
-        int length = strlen(input); //length of password
-	long double totalGuesses = pow(range, length); // combinations
-	double guessesPerSec = 1e9; // assuming 1B guesses/sec
-	long double seconds = totalGuesses / guessesPerSec; //estimated time
-    (...)
+int length = strlen(input); //length of password
+long double totalGuesses = pow(range, length); // combinations
+double guessesPerSec = 1e9; // assuming 1B guesses/sec
+long double seconds = totalGuesses / guessesPerSec; //estimated time
+(...)
 ```   
 
 ## To-Do
