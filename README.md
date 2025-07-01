@@ -106,9 +106,8 @@ The following document from [RFC editor](https://www.rfc-editor.org/rfc/rfc4086)
 
 Entropy, in general, can not provide a standard of password security due to 1) [Moore's Law](https://en.wikipedia.org/wiki/Moore%27s_law) (2/3 bits would have to be added every year to maintain password security standards, [RFC4086](https://www.rfc-editor.org/rfc/rfc4086#section-8.2.1)) and 2) the varying resistance to cracking attacks between passwords of the same (Shannon) entropy value presented in this [blog](https://reusablesec.blogspot.com/2010/10/ccs-paper-part-2-password-entropy.html).
 
-<br>
 
-Disclaimer: Not all references provided are peer-reviewed or academically "valid". This is just a side project, not to be used as an actual tool for determining password security.
+_Disclaimer_: Not all references provided are peer-reviewed or academically "valid". This is just a side project, not to be used as an actual tool for determining password security.
 
 ### Bruteforce Time Estimation
 
@@ -125,12 +124,11 @@ The BTE was made using the following equation:
 
 <br>
 
-```cpp
-    int length = strlen(input); //length of password
+```cpp    
+        int length = strlen(input); //length of password
 	long double totalGuesses = pow(range, length); // combinations
 	double guessesPerSec = 1e9; // assuming 1B guesses/sec
 	long double seconds = totalGuesses / guessesPerSec; //estimated time
-    
     (...)
 ```   
 
