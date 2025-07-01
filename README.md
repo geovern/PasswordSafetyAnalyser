@@ -134,11 +134,19 @@ long double seconds = totalGuesses / guessesPerSec; //estimated time
 
 ## How to Install:
 
-On Linux (if you have cmake and a C++ compiler):
+On Linux/MacOS(I think) (if you have CMake and a C++ compiler):
 
 ```bash 
 git clone https://github.com/geovern/PasswordSafetyAnalyser.git
+cd PasswordSafetyAnalyser/
 ./build_project
+```
+
+To Run:
+
+```bash
+cd build/
+./pwrdSA
 ```
 
 ## To-Do
