@@ -5,7 +5,7 @@
 #include <cstdlib> //ASCII library
 #include <unordered_map> //why??
 #include <utility>
-#include "password_utils.h"
+#include "password_utils.hpp"
 using namespace std;
 
 int metrics (char input[]) {

@@ -6,7 +6,7 @@
 #include <cstring>
 #include <utility>
 #include <string>
-#include "password_utils.h"
+#include "password_utils.hpp"
 using namespace std;
 
 // compile with:

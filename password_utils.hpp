@@ -1,5 +1,5 @@
-#ifndef PASSWORD_UTILS_H
-#define PASSWORD_UTILS_H
+#ifndef PASSWORD_UTILS_HPP
+#define PASSWORD_UTILS_HPP
 
 #include <utility>
 using namespace std;
