@@ -10,7 +10,7 @@
 using namespace std;
 
 // compile with:
-// g++ pwrdSec.cpp password_utils.cpp -o xpwrdSec -std=c++20 -lm
+// g++ main.cpp password_utils.cpp -o xpwrdSec -std=c++20 -lm
 
 int main() {
 
